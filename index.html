@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Food Donation & Redistribution Portal</title>
+
+<style>
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    margin:0;
+    background:#eef3f7;
+}
+
+header{
+    background:linear-gradient(135deg,#27ae60,#2ecc71);
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+
+.container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+
+h2{
+    color:#27ae60;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+input,select,button{
+    padding:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    width:100%;
+}
+
+button{
+    background:#27ae60;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#219150;
+}
+
+.hidden{
+    display:none;
+}
+
+.list{
+    background:#f8f9fa;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px;
+}
+
+.badge{
+    float:right;
+    background:#2ecc71;
+    color:white;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+footer{
+    text-align:center;
+    padding:15px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Food Donation & Redistribution Portal</h1>
+    <p>Reducing Food Waste • Helping Communities</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div class="card">
+    <h2>Login</h2>
+    <div class="grid">
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <select id="role">
+            <option value="">Select Role</option>
+            <option value="donor">Donor</option>
+            <option value="ngo">NGO</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<!-- DONOR -->
+<div id="donor" class="card hidden">
+    <h2>Donor Dashboard</h2>
+    <div class="grid">
+        <input id="food" placeholder="Food Type">
+        <input id="qty" placeholder="Quantity">
+        <input type="date">
+        <input placeholder="Pickup Location">
+        <button onclick="addDonation()">Add Donation</button>
+    </div>
+    <div id="donationResult"></div>
+</div>
+
+<!-- NGO -->
+<div id="ngo" class="card hidden">
+    <h2>NGO Dashboard</h2>
+    <div class="list">
+        Rice – 10kg – DHA Lahore
+        <span class="badge">Available</span>
+    </div>
+    <div class="list">
+        Bread – 20 Packs – Gulberg
+        <span class="badge">Urgent</span>
+    </div>
+    <button onclick="alert('Donation Requested Successfully')">Request Donation</button>
+</div>
+
+<!-- VOLUNTEER -->
+<div id="volunteer" class="card hidden">
+    <h2>Volunteer Dashboard</h2>
+    <div class="list">
+        Pickup Rice from DHA → Deliver to NGO
+        <span class="badge">Assigned</span>
+    </div>
+    <div class="grid">
+        <button onclick="alert('Marked as Picked')">Mark Picked</button>
+        <button onclick="alert('Delivery Completed')">Mark Delivered</button>
+    </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="card hidden">
+    <h2>Admin Dashboard</h2>
+    <div class="grid">
+        <button onclick="alert('User Management Panel')">Manage Users</button>
+        <button onclick="alert('Volunteer Assigned')">Assign Volunteers</button>
+        <button onclick="alert('Report Generated')">Generate Reports</button>
+    </div>
+</div>
+
+</div>
+
+<footer>
+    SCD Project • BS Software Engineering • Spring 2025
+</footer>
+
+<script>
+function login(){
+    let role = document.getElementById("role").value;
+    document.querySelectorAll(".card").forEach(c => c.classList.add("hidden"));
+    document.querySelector(".card").classList.remove("hidden");
+
+    if(role){
+        document.getElementById(role).classList.remove("hidden");
+    } else {
+        alert("Please select a role");
+    }
+}
+
+function addDonation(){
+    let food = document.getElementById("food").value;
+    let qty = document.getElementById("qty").value;
+    if(food && qty){
+        document.getElementById("donationResult").innerHTML =
+            `<div class="list">${food} - ${qty} added successfully <span class="badge">Posted</span></div>`;
+    } else {
+        alert("Enter food and quantity");
+    }
+}
+</script>
+
+</body>
+</html>
